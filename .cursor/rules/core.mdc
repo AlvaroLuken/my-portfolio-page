@@ -1,0 +1,11 @@
+---
+description: Global project standards and agent behavior
+globs: **/*
+alwaysApply: true
+---
+# Core Project Rules
+- **Framework**: Next.js 15+ (App Router), Tailwind CSS, TypeScript.
+- **Suppression**: Always maintain 'suppressHydrationWarning' on the <html> tag in the root layout.
+- **Behavior**: Be concise. No prose.
+- **Zero Placeholder Policy**: Fully implement functions; no // TODOs.
+- **Server-First**: Use React Server Components by default.

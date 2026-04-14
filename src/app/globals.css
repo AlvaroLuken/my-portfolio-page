@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f1411;
+  --foreground: #d8ded6;
 }
 
 @theme inline {
@@ -12,15 +12,215 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Arial Narrow", Arial, sans-serif;
+  font-size: 16px;
+  overflow: hidden;
+}
+
+.terrain-page {
+  min-height: 100vh;
+  padding: 32px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(216, 210, 182, 0.08), transparent 35%),
+    radial-gradient(circle at 78% 85%, rgba(194, 180, 142, 0.07), transparent 42%),
+    repeating-radial-gradient(
+      circle at 30% 35%,
+      rgba(217, 213, 190, 0.16) 0 2px,
+      transparent 2px 22px
+    ),
+    #121614;
+}
+
+.terrain-shell {
+  width: min(calc(100vw - 112px), 1600px);
+  min-height: min(calc(100vh - 64px), 900px);
+}
+
+.terrain-card {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: min(calc(100vh - 64px), 900px);
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(192, 202, 195, 0.22);
+  background: #c3c8c6;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+}
+
+.terrain-left {
+  padding: 1.1rem 0.9rem;
+  border-right: 1px solid rgba(80, 92, 88, 0.35);
+  color: #25322d;
+}
+
+.terrain-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.terrain-nav,
+.terrain-legend {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.terrain-nav li + li,
+.terrain-legend li + li {
+  margin-top: 0.45rem;
+}
+
+.terrain-nav {
+  margin-bottom: 1rem;
+}
+
+.terrain-nav a {
+  color: #293631;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.09em;
+}
+
+.terrain-nav a:hover {
+  text-decoration: underline;
+}
+
+.terrain-legend {
+  margin-bottom: 4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(65, 76, 72, 0.2);
+  font-size: 0.58rem;
+  color: #44544d;
+  letter-spacing: 0.09em;
+}
+
+.terrain-title {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.65rem, 2.2vw, 2.8rem);
+  line-height: 0.94;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  color: #1f2a26;
+}
+
+.terrain-copy {
+  margin: 0;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #4f5f57;
+}
+
+.terrain-map {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(69, 101, 90, 0.4), transparent 40%),
+    linear-gradient(35deg, #23342d 0%, #182520 58%, #101915 100%);
+}
+
+.terrain-map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, transparent 24.5%, rgba(164, 175, 170, 0.3) 25%, transparent 25.5%),
+    linear-gradient(to right, transparent 49.5%, rgba(164, 175, 170, 0.28) 50%, transparent 50.5%),
+    linear-gradient(to right, transparent 74.5%, rgba(164, 175, 170, 0.3) 75%, transparent 75.5%),
+    linear-gradient(to bottom, transparent 29.5%, rgba(164, 175, 170, 0.28) 30%, transparent 30.5%),
+    linear-gradient(to bottom, transparent 69.5%, rgba(164, 175, 170, 0.28) 70%, transparent 70.5%);
+}
+
+.terrain-meta {
+  position: absolute;
+  top: 0.7rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2.2rem;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  color: rgba(212, 218, 213, 0.95);
+  z-index: 2;
+}
+
+.terrain-globe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.terrain-globe canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+.terrain-mini {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  width: 132px;
+  border: 1px solid rgba(190, 201, 191, 0.45);
+  background: #273630;
+  padding: 0.62rem;
+  z-index: 3;
+}
+
+.terrain-mini p {
+  margin: 0 0 0.4rem;
+  text-transform: uppercase;
+  font-size: 0.48rem;
+  letter-spacing: 0.21em;
+}
+
+.terrain-mini h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  text-align: center;
+  font-weight: 700;
+}
+
+.terrain-mini div {
+  margin-top: 0.65rem;
+  height: 36px;
+  border-radius: 100px 100px 0 0;
+  background: #92553f;
+}
+
+@media (max-width: 960px) {
+  .terrain-card {
+    grid-template-columns: 1fr;
+  }
+
+  .terrain-left {
+    border-right: 0;
+    border-bottom: 1px solid rgba(80, 92, 88, 0.35);
+  }
+
+  .terrain-title {
+    font-size: 1.9rem;
+  }
+
+  .terrain-map {
+    min-height: 460px;
+  }
 }
