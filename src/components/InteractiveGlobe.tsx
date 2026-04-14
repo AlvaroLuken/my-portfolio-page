@@ -53,6 +53,7 @@ export default function InteractiveGlobe() {
     const earthNormalMap = textureLoader.load("/textures/earth_normal.jpg");
     const earthSpecularMap = textureLoader.load("/textures/earth_specular.jpg");
     const earthCloudMap = textureLoader.load("/textures/earth_clouds.png");
+    const moonMap = textureLoader.load("/textures/moon.jpg");
 
     earthDayMap.colorSpace = THREE.SRGBColorSpace;
     earthDayMap.anisotropy = maxAnisotropy;
@@ -60,6 +61,8 @@ export default function InteractiveGlobe() {
     earthSpecularMap.anisotropy = maxAnisotropy;
     earthCloudMap.colorSpace = THREE.SRGBColorSpace;
     earthCloudMap.anisotropy = maxAnisotropy;
+    moonMap.colorSpace = THREE.SRGBColorSpace;
+    moonMap.anisotropy = maxAnisotropy;
 
     const ambient = new THREE.AmbientLight(0xb8ccc2, 0.95);
     const directional = new THREE.DirectionalLight(0xf2f0de, 1.3);
@@ -70,6 +73,31 @@ export default function InteractiveGlobe() {
 
     const globeGroup = new THREE.Group();
     scene.add(globeGroup);
+
+    const starsGeometry = new THREE.BufferGeometry();
+    const starCount = 1800;
+    const starVertices = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i += 1) {
+      const radius = 6 + Math.random() * 7.5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      const idx = i * 3;
+      starVertices[idx] = radius * Math.sin(phi) * Math.cos(theta);
+      starVertices[idx + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      starVertices[idx + 2] = radius * Math.cos(phi);
+    }
+    starsGeometry.setAttribute("position", new THREE.BufferAttribute(starVertices, 3));
+    const stars = new THREE.Points(
+      starsGeometry,
+      new THREE.PointsMaterial({
+        color: 0xe8f1ff,
+        size: 0.028,
+        sizeAttenuation: true,
+        transparent: true,
+        opacity: 0.85,
+      }),
+    );
+    scene.add(stars);
 
     const globe = new THREE.Mesh(
       new THREE.SphereGeometry(1, 96, 96),
@@ -104,6 +132,17 @@ export default function InteractiveGlobe() {
     );
 
     globeGroup.add(globe, cloudLayer, wire);
+
+    const moon = new THREE.Mesh(
+      new THREE.SphereGeometry(0.22, 48, 48),
+      new THREE.MeshStandardMaterial({
+        map: moonMap,
+        roughness: 1,
+        metalness: 0,
+      }),
+    );
+    moon.position.set(1.9, 0.78, -1.8);
+    scene.add(moon);
 
     const markerPosition = latLngToVector3(SAN_DIEGO.lat, SAN_DIEGO.lng, 1.02);
     const normal = markerPosition.clone().normalize();
@@ -140,7 +179,16 @@ export default function InteractiveGlobe() {
         depthWrite: false,
       }),
     );
-    const pulseB = pulseA.clone();
+    const pulseB = new THREE.Mesh(
+      new THREE.RingGeometry(0.03, 0.04, 48),
+      new THREE.MeshBasicMaterial({
+        color: 0xc9edd9,
+        transparent: true,
+        opacity: 0.72,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+      }),
+    );
     pulseA.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.002)));
     pulseB.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.003)));
     const ringQuat = new THREE.Quaternion().setFromUnitVectors(
@@ -164,6 +212,8 @@ export default function InteractiveGlobe() {
       const scaleA = 1 + pulse1 * 5.2;
       const scaleB = 1 + pulse2 * 5.2;
 
+      stars.rotation.y += 0.00008;
+      moon.rotation.y += 0.0009;
       cloudLayer.rotation.y += 0.0005;
       pulseA.scale.setScalar(scaleA);
       pulseB.scale.setScalar(scaleB);
@@ -196,16 +246,23 @@ export default function InteractiveGlobe() {
       (cloudLayer.material as THREE.MeshPhongMaterial).dispose();
       wire.geometry.dispose();
       (wire.material as THREE.MeshBasicMaterial).dispose();
+      moon.geometry.dispose();
+      (moon.material as THREE.MeshStandardMaterial).dispose();
+      starsGeometry.dispose();
+      (stars.material as THREE.PointsMaterial).dispose();
       marker.geometry.dispose();
       (marker.material as THREE.MeshStandardMaterial).dispose();
       markerLine.geometry.dispose();
       (markerLine.material as THREE.MeshBasicMaterial).dispose();
       pulseA.geometry.dispose();
       (pulseA.material as THREE.MeshBasicMaterial).dispose();
+      pulseB.geometry.dispose();
+      (pulseB.material as THREE.MeshBasicMaterial).dispose();
       earthDayMap.dispose();
       earthNormalMap.dispose();
       earthSpecularMap.dispose();
       earthCloudMap.dispose();
+      moonMap.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
