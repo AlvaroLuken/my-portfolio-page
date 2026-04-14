@@ -1,17 +1,24 @@
+import BackgroundAudio from "../components/BackgroundAudio";
 import InteractiveGlobe from "../components/InteractiveGlobe";
 
 export default function Home() {
   const nav = [
-    "Map",
-    "Projects",
-    "About",
-    "Playground",
-    "Contact",
-    "Instagram",
-    "LinkedIn",
+    { label: "Map" },
+    { label: "Projects" },
+    { label: "About" },
+    { label: "Playground" },
+    { label: "Contact" },
+    { label: "Instagram" },
+    { label: "LinkedIn", icon: "in" },
+    { label: "X", icon: "X" },
   ];
 
-  const legend = ["Orbit", "Drag to rotate", "Scroll to zoom", "San Diego ping"];
+  const legend = [
+    "Orbit",
+    "Drag to rotate",
+    "Scroll to zoom",
+    "Click San Diego ping",
+  ];
 
   return (
     <div className="terrain-page">
@@ -21,8 +28,11 @@ export default function Home() {
             <p className="terrain-eyebrow">The Trails of Alvaro</p>
             <ul className="terrain-nav">
               {nav.map((item) => (
-                <li key={item}>
-                  <a href="#">{item}</a>
+                <li key={item.label}>
+                  <a href="#">
+                    <span>{item.label}</span>
+                    {item.icon ? <span className="terrain-nav-icon">{item.icon}</span> : null}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -36,7 +46,9 @@ export default function Home() {
             <h1 className="terrain-title">
               A creative studio where brands and stories move off-trails
             </h1>
-            <p className="terrain-copy">@2026 Atelier Alvaro Inc.</p>
+            <div className="terrain-left-bottom">
+              <p className="terrain-copy">@2026 Atelier Alvaro Inc.</p>
+            </div>
           </aside>
 
           <section className="terrain-map" aria-label="Interactive Globe">
@@ -45,6 +57,7 @@ export default function Home() {
               <span>San Diego, California</span>
             </div>
             <InteractiveGlobe />
+            <BackgroundAudio src="/ElGato.mp4" className="terrain-audio-in-map" />
 
             <div className="terrain-mini">
               <p>Base Camp</p>
