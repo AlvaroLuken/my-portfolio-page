@@ -29,7 +29,7 @@ const HOTSPOTS = [
     lng: -58.3816,
     color: 0xff9fb6,
     flag: "🇦🇷",
-    lines: ["My favorite city in the world!", "I love vacationing here and know it well."],
+    lines: ["My favorite city in the world!", "I love vacationing here and have really enjoyed learning about Argentinian culture and history."],
   },
   {
     title: "Wentzville, Missouri",
@@ -53,7 +53,7 @@ const HOTSPOTS = [
     lng: -74.006,
     color: 0xff8f95,
     flag: "🇺🇸",
-    lines: ["Where my CS degree journey happened."],
+    lines: ["I spent my college years in New York City. I love the city, the energy, and the people.", "I still keep a home base here."],
   },
   {
     title: "Phoenix, Arizona",

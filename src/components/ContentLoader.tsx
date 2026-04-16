@@ -15,6 +15,7 @@ export default function ContentLoader({ loadedCount, totalCount }: ContentLoader
       <p className="terrain-content-loader-label">
         Loading content... {loadedCount}/{totalCount}
       </p>
+      <p className="terrain-content-loader-subtext">This can take up to 5-10 seconds.</p>
     </div>
   );
 }

@@ -116,7 +116,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
     ],
   },
   gallery: {
-    heading: "Gallery",
+    heading: "Gallery (click on images to view full size and details!)",
     layout: "cards",
     cards: [
       {
@@ -222,6 +222,30 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         cta: "View Photo",
         imageSrc: "/gallery/hackathon-circle-bounties-slide.png",
         imageAlt: "Presentation slide showing Circle bounties and ideas",
+      },
+      {
+        title: "Court-Side Moment with le GF",
+        subtitle:
+          "A court-side photo from one of my weekly pickup games!",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-court-side-selfie.png",
+        imageAlt: "Alvaro taking a selfie with his girlfriend at an indoor arena",
+      },
+      {
+        title: "Gym Session",
+        subtitle:
+          "Post-workout mirror check with my good buddy Sahil after a focused lifting session.",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-gym-mirror-session.png",
+        imageAlt: "Alvaro and Sahil taking a mirror photo at the gym",
+      },
+      {
+        title: "Suited up with Nikil (CEO of Alchemy!)",
+        subtitle:
+          "Alchemy holiday partywith Nikil (CEO of Alchemy).",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-networking-evening.png",
+        imageAlt: "Alvaro posing with Nikil (CEO of Alchemy) at a networking event",
       },
     ],
   },

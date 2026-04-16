@@ -47,6 +47,8 @@ function getSocialHandleFromHref(href: string) {
 
 const RESUME_PDF_PATH = "/resume/AL_LUKEN_RESUME_2026.pdf";
 const RESUME_PDF_VIEW_PATH = `${RESUME_PDF_PATH}#toolbar=1&navpanes=0&scrollbar=1&zoom=page-width`;
+const BIO_AVATAR_SRC = "/avatar/alvaro-avatar-featured.png";
+const BIO_AVATAR_ALT = "Portrait of Alvaro Luken";
 
 function getProjectBadgeClass(badge: string) {
   const normalized = badge.trim().toLowerCase();
@@ -183,10 +185,10 @@ export default function Home() {
                 setActiveTab(null);
               }}
             >
-              <p className="terrain-name">Alvaro Luken</p>
+              <p className="terrain-name">Alvaro (Al) Luken</p>
             </button>
             <h1 className="terrain-title">
-              Creative developer, designer, educator, instructor, mentor, and community builder.
+              Creative developer, designer, educator, engineer, and community builder.
             </h1>
             <ul className="terrain-nav">
               {primaryNavItems.map((item) => (
@@ -203,7 +205,7 @@ export default function Home() {
             </ul>
             <div className="terrain-left-bottom">
               <p className="terrain-subheader">
-                Designing meaningful experiences where story, strategy, and code meet.
+                I design meaningful experiences where story, strategy, and code meet...
               </p>
               <ul className="terrain-nav terrain-nav-utility-list">
                 {utilityNavItems.map((item, index) => (
@@ -249,11 +251,35 @@ export default function Home() {
                 {activePanel.layout === "bio" ? (
                   <>
                     <section className="terrain-bio-intro">
-                      <h3>About Me</h3>
-                      <p>
-                        I am a creative developer, educator, and community builder focused on helping
-                        people learn, ship, and grow through thoughtful product experiences and technical storytelling.
-                      </p>
+                      <div className="terrain-bio-intro-card">
+                        <button
+                          type="button"
+                          className="terrain-bio-intro-avatar-wrap terrain-bio-intro-avatar-button"
+                          onClick={() => {
+                            setPanelOverlayOffsetTop(getPanelScrollTop());
+                            setActiveBioImage({
+                              src: BIO_AVATAR_SRC,
+                              alt: BIO_AVATAR_ALT,
+                              title: "About Me",
+                              subtitle:
+                                "Creative developer, educator, and community builder focused on thoughtful product experiences and technical storytelling.",
+                            });
+                          }}
+                        >
+                          <img
+                            src={BIO_AVATAR_SRC}
+                            alt={BIO_AVATAR_ALT}
+                            className="terrain-bio-intro-avatar"
+                            loading="lazy"
+                          />
+                        </button>
+                        <div className="terrain-bio-intro-copy">
+                          <h3>About Me</h3>
+                          <p>
+                          Al has taught thousands of students, from all backgrounds, how to code. He was a founding engineer and built the Alchemy University platform. He is a veteran edtech developer and community builder. In his personal time, you can find him looking at NFTs and building cool webapps (addicted to Cursor!) for fun. When he is not coding, he is probably watching a movie, playing music (looking for a band!) or researching health & wellness trends.
+                          </p>
+                        </div>
+                      </div>
                     </section>
                     <ol className="terrain-bio-flow">
                       {activePanel.bioSteps?.map((step: HomeBioStep) => (
@@ -502,8 +528,6 @@ export default function Home() {
                               alt={card.imageAlt ?? `${card.title} preview`}
                               loading="lazy"
                             />
-                            <h3>{card.title}</h3>
-                            <p>{card.subtitle}</p>
                           </button>
                         );
                       }
@@ -577,7 +601,6 @@ export default function Home() {
                       <header className="terrain-gallery-lightbox-header">
                         <div>
                           <h3>{activeGalleryCard.title}</h3>
-                          <p>{activeGalleryCard.subtitle}</p>
                         </div>
                         <button type="button" onClick={() => setActiveGalleryCard(null)}>
                           Close

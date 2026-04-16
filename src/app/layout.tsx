@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alvaro Luken | Creative Developer",
+  title: "Al Luken | Creative Developer",
   description:
-    "Portfolio of Alvaro Luken: creative developer, designer-minded builder, and educator focused on immersive product experiences.",
+    "Portfolio of Al Luken: creative developer, designer-minded builder, and educator focused on immersive product experiences.",
   icons: {
     icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8E%3C/text%3E%3C/svg%3E",
   },
