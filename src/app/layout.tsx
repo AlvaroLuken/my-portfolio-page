@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Alvaro Luken | Creative Developer",
   description:
     "Portfolio of Alvaro Luken: creative developer, designer-minded builder, and educator focused on immersive product experiences.",
+  icons: {
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8E%3C/text%3E%3C/svg%3E",
+  },
 };
 
 export default function RootLayout({
@@ -29,6 +32,12 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://www.youtube.com" />
+        <link rel="preconnect" href="https://i.ytimg.com" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
+        <link rel="dns-prefetch" href="https://i.ytimg.com" />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

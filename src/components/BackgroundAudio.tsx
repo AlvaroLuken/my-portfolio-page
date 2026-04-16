@@ -81,7 +81,7 @@ export default function BackgroundAudio({ src, className }: BackgroundAudioProps
       <audio ref={audioRef} src={src} loop preload="auto" playsInline />
       <button
         type="button"
-        className={`terrain-audio-control ${className ?? ""}`.trim()}
+        className={`terrain-audio-control ${isPlaying ? "is-playing" : "is-idle"} ${className ?? ""}`.trim()}
         aria-label={isPlaying ? "Pause background music" : "Play background music"}
         onClick={() => {
           void togglePlayback();

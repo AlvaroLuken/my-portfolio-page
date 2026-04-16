@@ -4,19 +4,72 @@ import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-const SAN_DIEGO = {
-  lat: 32.7157,
-  lng: -117.1611,
-};
-
-const SAN_DIEGO_INFO = {
-  title: "San Diego, CA",
-  lines: [
-    "Born here.",
-    "Based here.",
-    "Building products and teaching developers from here.",
-  ],
-};
+const HOTSPOTS = [
+  {
+    title: "San Diego, California",
+    lat: 32.7157,
+    lng: -117.1611,
+    color: 0x7ce8b5,
+    flag: "🇺🇸",
+    lines: ["Born here.", "Based here.", "Where I build and teach from."],
+  },
+  {
+    title: "Tijuana, Baja California, Mexico",
+    lat: 32.5149,
+    lng: -117.0382,
+    color: 0x86d0ff,
+    flag: "🇲🇽",
+    lines: ["Cross-border inspiration.", "Creative influence from Baja culture."],
+  },
+  {
+    title: "Mexico City, Mexico",
+    lat: 19.4326,
+    lng: -99.1332,
+    color: 0x7fe3d0,
+    flag: "🇲🇽",
+    lines: ["Major creative and cultural anchor.", "Frequent source of inspiration."],
+  },
+  {
+    title: "Buenos Aires, Argentina",
+    lat: -34.6037,
+    lng: -58.3816,
+    color: 0xff9fb6,
+    flag: "🇦🇷",
+    lines: ["A global perspective node.", "Future collaboration destination."],
+  },
+  {
+    title: "Wentzville, Missouri",
+    lat: 38.8114,
+    lng: -90.8529,
+    color: 0xffcc7a,
+    flag: "🇺🇸",
+    lines: ["Manufacturing chapter.", "Hands-on operational experience."],
+  },
+  {
+    title: "San Francisco, California",
+    lat: 37.7749,
+    lng: -122.4194,
+    color: 0xc5b3ff,
+    flag: "🇺🇸",
+    lines: ["Primary tech ecosystem base.", "Product and startup proximity."],
+  },
+  {
+    title: "New York, New York",
+    lat: 40.7128,
+    lng: -74.006,
+    color: 0xff8f95,
+    flag: "🇺🇸",
+    lines: ["Where my CS degree journey happened.", "Enduring creative influence."],
+  },
+  {
+    title: "Phoenix, Arizona",
+    lat: 33.4484,
+    lng: -112.074,
+    color: 0xffb56a,
+    flag: "🇺🇸",
+    lines: ["Southwest network node.", "Frequent collaboration point."],
+  },
+] as const;
 
 function createRadialGlowTexture() {
   const size = 256;
@@ -58,9 +111,15 @@ function latLngToVector3(lat: number, lng: number, radius: number) {
 export default function InteractiveGlobe() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
+  const activeHotspotRef = useRef<{
+    title: string;
+    flag: string;
+    lines: readonly string[];
+  } | null>(null);
   const [activeHotspot, setActiveHotspot] = useState<{
     title: string;
-    lines: string[];
+    flag: string;
+    lines: readonly string[];
   } | null>(null);
 
   useEffect(() => {
@@ -91,7 +150,7 @@ export default function InteractiveGlobe() {
     controls.minPolarAngle = Math.PI / 2;
     controls.maxPolarAngle = Math.PI / 2;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.26;
+    controls.autoRotateSpeed = 0.16;
     controls.rotateSpeed = 0.6;
 
     const textureLoader = new THREE.TextureLoader();
@@ -354,78 +413,105 @@ export default function InteractiveGlobe() {
     moon.position.set(1.9, 0.78, -1.8);
     scene.add(moon);
 
-    const markerPosition = latLngToVector3(SAN_DIEGO.lat, SAN_DIEGO.lng, 1.02);
-    const normal = markerPosition.clone().normalize();
+    const hotspots = HOTSPOTS.map((hotspot) => {
+      const markerPosition = latLngToVector3(hotspot.lat, hotspot.lng, 1.02);
+      const normal = markerPosition.clone().normalize();
+      const isPrimary = hotspot.title === "San Diego, California";
+      const markerColor = new THREE.Color(hotspot.color);
+      const markerEmissive = markerColor.clone().multiplyScalar(0.82);
+      const markerLineColor = markerColor.clone().lerp(new THREE.Color(0xffffff), 0.28);
+      const pulseColor = markerColor.clone().lerp(new THREE.Color(0xffffff), 0.42);
 
-    const marker = new THREE.Mesh(
-      new THREE.SphereGeometry(0.022, 20, 20),
-      new THREE.MeshStandardMaterial({
-        color: 0xd8f2df,
-        emissive: 0x83f2bf,
-        emissiveIntensity: 1.4,
-      }),
-    );
-    marker.position.copy(markerPosition);
-    marker.userData.hotspot = SAN_DIEGO_INFO;
-    globeGroup.add(marker);
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(0.018, 20, 20),
+        new THREE.MeshStandardMaterial({
+          color: markerColor,
+          emissive: markerEmissive,
+          emissiveIntensity: isPrimary ? 0.45 : 0.2,
+        }),
+      );
+      marker.position.copy(markerPosition);
+      marker.userData.hotspot = hotspot;
+      globeGroup.add(marker);
 
-    const markerHitArea = new THREE.Mesh(
-      new THREE.SphereGeometry(0.12, 16, 16),
-      new THREE.MeshBasicMaterial({
-        transparent: true,
-        opacity: 0,
-        depthWrite: false,
-      }),
-    );
-    markerHitArea.position.copy(markerPosition);
-    markerHitArea.userData.hotspot = SAN_DIEGO_INFO;
-    globeGroup.add(markerHitArea);
+      const markerHitArea = new THREE.Mesh(
+        new THREE.SphereGeometry(0.12, 16, 16),
+        new THREE.MeshBasicMaterial({
+          transparent: true,
+          opacity: 0,
+          depthWrite: false,
+        }),
+      );
+      markerHitArea.position.copy(markerPosition);
+      markerHitArea.userData.hotspot = hotspot;
+      globeGroup.add(markerHitArea);
 
-    const markerLine = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.004, 0.004, 0.23, 12),
-      new THREE.MeshBasicMaterial({ color: 0xa5d8c2 }),
-    );
-    markerLine.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.11)));
-    markerLine.quaternion.setFromUnitVectors(
-      new THREE.Vector3(0, 1, 0),
-      normal.clone().normalize(),
-    );
-    globeGroup.add(markerLine);
+      const markerLine = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.004, 0.004, 0.23, 12),
+        new THREE.MeshBasicMaterial({
+          color: markerLineColor,
+          transparent: true,
+          opacity: isPrimary ? 0.2 : 0,
+        }),
+      );
+      markerLine.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.11)));
+      markerLine.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        normal.clone().normalize(),
+      );
+      globeGroup.add(markerLine);
 
-    const pulseA = new THREE.Mesh(
-      new THREE.RingGeometry(0.03, 0.04, 48),
-      new THREE.MeshBasicMaterial({
-        color: 0xc9edd9,
-        transparent: true,
-        opacity: 0.72,
-        side: THREE.DoubleSide,
-        depthWrite: false,
-      }),
-    );
-    const pulseB = new THREE.Mesh(
-      new THREE.RingGeometry(0.03, 0.04, 48),
-      new THREE.MeshBasicMaterial({
-        color: 0xc9edd9,
-        transparent: true,
-        opacity: 0.72,
-        side: THREE.DoubleSide,
-        depthWrite: false,
-      }),
-    );
-    pulseA.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.002)));
-    pulseB.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.003)));
-    const ringQuat = new THREE.Quaternion().setFromUnitVectors(
-      new THREE.Vector3(0, 0, 1),
-      normal,
-    );
-    pulseA.quaternion.copy(ringQuat);
-    pulseB.quaternion.copy(ringQuat);
-    globeGroup.add(pulseA, pulseB);
+      const pulseA = new THREE.Mesh(
+        new THREE.RingGeometry(0.03, 0.04, 48),
+        new THREE.MeshBasicMaterial({
+          color: pulseColor,
+          transparent: true,
+          opacity: 0,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        }),
+      );
+      const pulseB = new THREE.Mesh(
+        new THREE.RingGeometry(0.03, 0.04, 48),
+        new THREE.MeshBasicMaterial({
+          color: pulseColor,
+          transparent: true,
+          opacity: 0,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        }),
+      );
+      pulseA.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.002)));
+      pulseB.position.copy(markerPosition.clone().add(normal.clone().multiplyScalar(0.003)));
+      const ringQuat = new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 0, 1),
+        normal,
+      );
+      pulseA.quaternion.copy(ringQuat);
+      pulseB.quaternion.copy(ringQuat);
+      globeGroup.add(pulseA, pulseB);
+
+      return {
+        marker,
+        markerHitArea,
+        markerLine,
+        pulseA,
+        pulseB,
+        data: hotspot,
+        isPrimary,
+        markerMaterial: marker.material as THREE.MeshStandardMaterial,
+        markerLineMaterial: markerLine.material as THREE.MeshBasicMaterial,
+        pulseAMaterial: pulseA.material as THREE.MeshBasicMaterial,
+        pulseBMaterial: pulseB.material as THREE.MeshBasicMaterial,
+        hoverMix: 0,
+      };
+    });
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
     const pointerStart = { x: 0, y: 0 };
-    const markerMaterial = marker.material as THREE.MeshStandardMaterial;
+    const hitAreas = hotspots.map((item) => item.markerHitArea);
+    let hoveredHotspotMesh: THREE.Object3D | null = null;
     let isHotspotHovered = false;
     let dragDistance = 0;
 
@@ -434,9 +520,10 @@ export default function InteractiveGlobe() {
       pointer.x = ((clientX - bounds.left) / bounds.width) * 2 - 1;
       pointer.y = -((clientY - bounds.top) / bounds.height) * 2 + 1;
       raycaster.setFromCamera(pointer, camera);
-      const intersections = raycaster.intersectObjects([markerHitArea], false);
+      const intersections = raycaster.intersectObjects(hitAreas, false);
+      hoveredHotspotMesh = intersections[0]?.object ?? null;
       return intersections.length > 0
-        ? (intersections[0].object.userData.hotspot as typeof SAN_DIEGO_INFO)
+        ? (intersections[0].object.userData.hotspot as (typeof HOTSPOTS)[number])
         : null;
     };
 
@@ -492,7 +579,6 @@ export default function InteractiveGlobe() {
 
     const clock = new THREE.Clock();
     let frame = 0;
-    let hoverMix = 0;
     let interactionBoost = 0;
     const shootingA = {
       active: false,
@@ -516,7 +602,6 @@ export default function InteractiveGlobe() {
 
       const scaleA = 1 + pulse1 * 5.2;
       const scaleB = 1 + pulse2 * 5.2;
-      hoverMix += ((isHotspotHovered ? 1 : 0) - hoverMix) * 0.12;
       interactionBoost += ((isUserInteracting ? 1 : 0) - interactionBoost) * 0.1;
 
       stars.rotation.y += 0.00008;
@@ -569,15 +654,34 @@ export default function InteractiveGlobe() {
 
       interactionSun.position.copy(camera.position.clone().normalize().multiplyScalar(3.6));
       interactionSun.intensity = 0.4 + interactionBoost * 0.72;
-      marker.scale.setScalar(1 + hoverMix * 0.45);
-      markerMaterial.emissiveIntensity = 1.4 + hoverMix * 1.15;
-      markerLine.scale.setScalar(1 + hoverMix * 0.2);
-      pulseA.scale.setScalar(scaleA);
-      pulseB.scale.setScalar(scaleB);
-      (pulseA.material as THREE.MeshBasicMaterial).opacity =
-        0.74 - pulse1 * 0.7 + hoverMix * 0.18;
-      (pulseB.material as THREE.MeshBasicMaterial).opacity =
-        0.74 - pulse2 * 0.7 + hoverMix * 0.18;
+      hotspots.forEach((hotspot) => {
+        const activeTitle = activeHotspotRef.current?.title;
+        const isHovered = hoveredHotspotMesh === hotspot.markerHitArea;
+        const isActive = activeTitle === hotspot.data.title;
+        const targetEmphasis = isActive
+          ? 1
+          : isHovered
+            ? 0.72
+            : hotspot.isPrimary
+              ? 0.28
+              : 0.12;
+        hotspot.hoverMix += (targetEmphasis - hotspot.hoverMix) * 0.12;
+        hotspot.marker.scale.setScalar(0.95 + hotspot.hoverMix * 0.38);
+        hotspot.markerMaterial.emissiveIntensity =
+          (hotspot.isPrimary ? 0.45 : 0.2) + hotspot.hoverMix * 1.1;
+        hotspot.markerLine.scale.setScalar(0.9 + hotspot.hoverMix * 0.22);
+        hotspot.markerLineMaterial.opacity = hotspot.isPrimary
+          ? 0.12 + hotspot.hoverMix * 0.7
+          : hotspot.hoverMix * 0.72;
+        hotspot.pulseA.scale.setScalar(scaleA);
+        hotspot.pulseB.scale.setScalar(scaleB);
+        hotspot.pulseAMaterial.opacity =
+          Math.max(0, 0.6 - pulse1 * 0.56 + hotspot.hoverMix * 0.14) *
+          Math.min(1, hotspot.hoverMix * 1.4);
+        hotspot.pulseBMaterial.opacity =
+          Math.max(0, 0.6 - pulse2 * 0.56 + hotspot.hoverMix * 0.14) *
+          Math.min(1, hotspot.hoverMix * 1.4);
+      });
 
       controls.update();
       renderer.render(scene, camera);
@@ -637,16 +741,18 @@ export default function InteractiveGlobe() {
       (sun.material as THREE.MeshBasicMaterial).dispose();
       (sunGlow.material as THREE.SpriteMaterial).dispose();
       sunGlowTexture.dispose();
-      marker.geometry.dispose();
-      (marker.material as THREE.MeshStandardMaterial).dispose();
-      markerHitArea.geometry.dispose();
-      (markerHitArea.material as THREE.MeshBasicMaterial).dispose();
-      markerLine.geometry.dispose();
-      (markerLine.material as THREE.MeshBasicMaterial).dispose();
-      pulseA.geometry.dispose();
-      (pulseA.material as THREE.MeshBasicMaterial).dispose();
-      pulseB.geometry.dispose();
-      (pulseB.material as THREE.MeshBasicMaterial).dispose();
+      hotspots.forEach((hotspot) => {
+        hotspot.marker.geometry.dispose();
+        (hotspot.marker.material as THREE.MeshStandardMaterial).dispose();
+        hotspot.markerHitArea.geometry.dispose();
+        (hotspot.markerHitArea.material as THREE.MeshBasicMaterial).dispose();
+        hotspot.markerLine.geometry.dispose();
+        (hotspot.markerLine.material as THREE.MeshBasicMaterial).dispose();
+        hotspot.pulseA.geometry.dispose();
+        (hotspot.pulseA.material as THREE.MeshBasicMaterial).dispose();
+        hotspot.pulseB.geometry.dispose();
+        (hotspot.pulseB.material as THREE.MeshBasicMaterial).dispose();
+      });
       earthDayMap.dispose();
       earthNormalMap.dispose();
       earthSpecularMap.dispose();
@@ -659,6 +765,7 @@ export default function InteractiveGlobe() {
   }, []);
 
   useEffect(() => {
+    activeHotspotRef.current = activeHotspot;
     if (!controlsRef.current) return;
     controlsRef.current.autoRotate = !activeHotspot;
   }, [activeHotspot]);
@@ -666,9 +773,6 @@ export default function InteractiveGlobe() {
   return (
     <>
       <div ref={containerRef} className="terrain-globe" />
-      <div className="terrain-planet-tag terrain-planet-tag-a">Orion</div>
-      <div className="terrain-planet-tag terrain-planet-tag-b">Kora</div>
-      <div className="terrain-planet-tag terrain-planet-tag-c">Lyra</div>
       {activeHotspot && (
         <div
           className="terrain-modal-backdrop"
@@ -691,7 +795,12 @@ export default function InteractiveGlobe() {
                 Close
               </button>
             </div>
-            <h3>{activeHotspot.title}</h3>
+            <h3>
+              <span>{activeHotspot.title}</span>
+              <span className="terrain-modal-flag" aria-hidden="true">
+                {activeHotspot.flag}
+              </span>
+            </h3>
             <ul>
               {activeHotspot.lines.map((line) => (
                 <li key={line}>{line}</li>
