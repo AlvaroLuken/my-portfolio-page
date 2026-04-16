@@ -7,6 +7,7 @@ type FormStatus = "idle" | "sending" | "success" | "error";
 export default function ContactFormCard() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorText, setErrorText] = useState("");
+  const [successText, setSuccessText] = useState("Message sent successfully.");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,6 +29,7 @@ export default function ContactFormCard() {
 
     setStatus("sending");
     setErrorText("");
+    setSuccessText("Message sent successfully.");
 
     try {
       const response = await fetch("/api/contact", {
@@ -38,11 +40,19 @@ export default function ContactFormCard() {
         body: JSON.stringify(payload),
       });
 
-      const data = (await response.json()) as { message?: string };
+      const data = (await response.json()) as {
+        message?: string;
+        fallback?: boolean;
+        mailto?: string;
+      };
       if (!response.ok) {
         throw new Error(data.message ?? "Failed to send message.");
       }
 
+      if (data.fallback && data.mailto) {
+        window.location.href = data.mailto;
+        setSuccessText("Opened your email app. Please send the drafted message.");
+      }
       setStatus("success");
       form.reset();
     } catch (error) {
@@ -65,7 +75,7 @@ export default function ContactFormCard() {
         </button>
       </form>
       {status === "success" ? (
-        <p className="terrain-form-feedback success">Message sent successfully.</p>
+        <p className="terrain-form-feedback success">{successText}</p>
       ) : null}
       {status === "error" ? <p className="terrain-form-feedback error">{errorText}</p> : null}
     </article>

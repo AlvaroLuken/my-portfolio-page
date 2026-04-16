@@ -72,6 +72,7 @@ export default function Home() {
     title: string;
     subtitle: string;
   } | null>(null);
+  const [panelOverlayOffsetTop, setPanelOverlayOffsetTop] = useState(0);
   const contentTimerRef = useRef<number | null>(null);
   const loadedVideoIdsRef = useRef<Set<string>>(new Set());
   const stageGridRef = useRef<HTMLDivElement | null>(null);
@@ -166,6 +167,8 @@ export default function Home() {
     }
   };
 
+  const getPanelScrollTop = () => stageGridRef.current?.scrollTop ?? 0;
+
   return (
     <div className="terrain-page">
       <main className="terrain-shell">
@@ -216,6 +219,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              <p className="terrain-copy">@2026 Atelier Alvaro Inc.</p>
             </div>
           </aside>
 
@@ -260,14 +264,15 @@ export default function Home() {
                               <button
                                 type="button"
                                 className="terrain-bio-logo-wrap terrain-bio-logo-button"
-                                onClick={() =>
+                                onClick={() => {
+                                  setPanelOverlayOffsetTop(getPanelScrollTop());
                                   setActiveBioImage({
                                     src: step.logoSrc ?? "",
                                     alt: step.logoAlt ?? `${step.title} logo`,
                                     title: step.title,
                                     subtitle: step.details,
-                                  })
-                                }
+                                  });
+                                }}
                               >
                                 <img
                                   src={step.logoSrc}
@@ -280,18 +285,19 @@ export default function Home() {
                             <div>
                               <h3>{step.title}</h3>
                               <p>{step.details}</p>
-                              {step.secondaryHref ? (
-                                <a
-                                  href={step.secondaryHref}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="terrain-bio-link terrain-bio-link-secondary"
-                                >
-                                  {step.secondaryLabel ?? "Learn more"}
-                                </a>
-                              ) : null}
-                              {step.href ? (
+                              {step.secondaryHref || step.href ? (
                                 <div className="terrain-bio-cta-row">
+                                  {step.secondaryHref ? (
+                                    <a
+                                      href={step.secondaryHref}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="terrain-stage-card-cta terrain-stage-card-cta-button terrain-bio-secondary-cta"
+                                    >
+                                      {step.secondaryLabel ?? "Learn more"}
+                                    </a>
+                                  ) : null}
+                                  {step.href ? (
                                   <a
                                     href={step.href}
                                     target="_blank"
@@ -300,6 +306,7 @@ export default function Home() {
                                   >
                                     {step.linkLabel ?? "Visit website"}
                                   </a>
+                                  ) : null}
                                 </div>
                               ) : null}
                             </div>
@@ -391,7 +398,6 @@ export default function Home() {
                                       allowFullScreen
                                     />
                                   </div>
-                                  <h3>{item.title}</h3>
                                 </article>
                               );
                             }
@@ -485,7 +491,10 @@ export default function Home() {
                             key={card.title}
                             type="button"
                             className="terrain-stage-card terrain-gallery-card-button"
-                            onClick={() => setActiveGalleryCard(card)}
+                            onClick={() => {
+                              setPanelOverlayOffsetTop(getPanelScrollTop());
+                              setActiveGalleryCard(card);
+                            }}
                           >
                             <img
                               className="terrain-stage-card-image"
@@ -547,6 +556,7 @@ export default function Home() {
                 {activeGalleryCard?.imageSrc && isGalleryPanel ? (
                   <div
                     className="terrain-gallery-lightbox-backdrop"
+                    style={{ top: `${panelOverlayOffsetTop}px`, bottom: "auto", height: "100%" }}
                     role="button"
                     tabIndex={0}
                     aria-label="Close image preview"
@@ -586,6 +596,7 @@ export default function Home() {
                 {activeBioImage ? (
                   <div
                     className="terrain-gallery-lightbox-backdrop"
+                    style={{ top: `${panelOverlayOffsetTop}px`, bottom: "auto", height: "100%" }}
                     role="button"
                     tabIndex={0}
                     aria-label="Close image preview"

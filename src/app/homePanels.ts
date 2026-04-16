@@ -7,9 +7,9 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
     cards: [
       {
         title: "P2 Market",
-        subtitle: "A peer-to-peer marketplace powered by stablecoins with low fees and escrow.",
+        subtitle: "A peer-to-peer marketplace powered by smart contracts and stablecoins. eBay charges a ~15% fee on sales, while we do a flat 2% fee, undercutting even payment processors. Many AI integrations added into the marketplace, including fully automated yield.",
         cta: "Visit Project",
-        badges: ["Founder", "Open Source", "Non-Profit"],
+        badges: ["Founder", "Open Source", "For Community", "Passion Project"],
         href: "https://p2.market/",
         imageSrc: "/previews/p2-market-real.png",
         imageAlt: "P2 Market project preview",
@@ -17,9 +17,9 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
       {
         title: "Visarely Punks",
         subtitle:
-          "A fully onchain generative art collection blending Vasarely-inspired optical patterns and punk aesthetics.",
+          "My own NFT collection, launched in 2022 on Base. A fully onchain generative art collection blending Vasarely-inspired optical patterns and punk aesthetics.",
         cta: "Visit Project",
-        badges: ["Archived", "Deprecated"],
+        badges: ["Archived", "Deprecated", "Passion Project"],
         href: "https://visarelypunks.fun/",
         imageSrc: "/previews/visarely-punks-real.png",
         imageAlt: "Visarely Punks project preview",
@@ -42,7 +42,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
       {
         period: "Start",
         title: "Born in San Diego",
-        details: "The beginning of my story and the city I continue to call home base.",
+        details: "Go Padres!!!",
         logoSrc: "/gallery/san-diego-map.png",
         logoAlt: "Map showing San Diego location",
       },
@@ -81,7 +81,8 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         logoAlt: "Alchemy logo",
         href: "https://www.alchemy.com/",
         linkLabel: "Visit website",
-        secondaryHref: "https://www.alchemy.com/blog/alchemy-acquires-chainshot",
+        secondaryHref:
+          "https://www.coindesk.com/business/2022/08/25/alchemy-acquires-web3-educational-platform-chainshot-to-onboard-developers",
         secondaryLabel: "Acquisition announcement",
       },
       {
@@ -119,7 +120,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
     layout: "cards",
     cards: [
       {
-        title: "ChainShot Dev Workshop",
+        title: "ChainShot Dev Workshop in Amsterdam 🇳🇱",
         subtitle:
           "Live smart contract session on stage, teaching developers through practical code walkthroughs.",
         cta: "View Photo",
@@ -127,23 +128,23 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         imageAlt: "Alvaro speaking on a ChainShot stage",
       },
       {
-        title: "Alchemy Team Day",
+        title: "ETH SD x Alchemy",
         subtitle:
-          "Builder-first culture snapshot with the Alchemy community and team after a workshop session.",
+          "ETH SD community event with Alchemy.",
         cta: "View Photo",
         imageSrc: "/gallery/alchemy-team-group.png",
         imageAlt: "Alchemy team group photo",
       },
       {
-        title: "Circle Swag Drop",
+        title: "Swag I Designed",
         subtitle:
-          "A collection of Circle and USDC gear from ecosystem events, talks, and community initiatives.",
+          "A collection of Circle and USDC swag that I personally designed. Merch is super important.",
         cta: "View Photo",
         imageSrc: "/gallery/circle-swag-collection.png",
         imageAlt: "Circle and USDC branded apparel",
       },
       {
-        title: "UP NEXT Workshop Feature",
+        title: "Dev Workshop in Austin, TX 🇺🇸",
         subtitle:
           "Workshop board at a live event featuring my cross-chain USDC and CCTP presentation session.",
         cta: "View Photo",
@@ -151,7 +152,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         imageAlt: "UP NEXT workshop display featuring Alvaro",
       },
       {
-        title: "Studio Days with Pixel",
+        title: "Studio Days with Niko the Cat",
         subtitle:
           "Behind-the-scenes workspace moment where design, development, and cat supervision all happen.",
         cta: "View Photo",
@@ -161,37 +162,37 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
       {
         title: "ETH SD Conversation Night",
         subtitle:
-          "Community event talk at ETH San Diego featuring Alchemy University and local builder conversations.",
+          "Recorded a conversation with ETH SD about my journey in the web3 x education space. See it in the 'My Content' tab!",
         cta: "View Photo",
         imageSrc: "/gallery/eth-sd-speaker-session.png",
         imageAlt: "ETH SD event discussion on stage",
       },
       {
-        title: "Converge Stage Session",
+        title: "Converge Stage Session in San Francisco, CA 🇺🇸",
         subtitle:
-          "On-stage at Converge discussing developer education and practical blockchain adoption.",
+          "On-stage at Converge discussing blockchain 101, developer education and practical Alchemy product integrations.",
         cta: "View Photo",
         imageSrc: "/gallery/converge-stage-circle.png",
         imageAlt: "Alvaro standing on a conference stage at Converge",
       },
       {
-        title: "NYC Street Geometry",
+        title: "Table I Made",
         subtitle:
-          "A candid city moment with bright geometric public art captured between sessions.",
+          "I was given access to a CNC machine and made this table for my apartment. I 3D printed the purple nuts and bolts.",
         cta: "View Photo",
         imageSrc: "/gallery/red-campus-sculpture.png",
         imageAlt: "Red geometric sculpture near a staircase and walkway",
       },
       {
-        title: "NYU Theater Night",
+        title: "GM Assembly Line",
         subtitle:
-          "Throwback from a university stage performance that shaped my early storytelling confidence.",
+          "Hands-on production floor moment from my time supporting GM's largest assembly line operations.",
         cta: "View Photo",
-        imageSrc: "/gallery/nyu-theater-performance.png",
-        imageAlt: "Alvaro on stage with actors during a performance",
+        imageSrc: "/gallery/gm-assembly-line-floor.png",
+        imageAlt: "Alvaro standing on a GM assembly line floor",
       },
       {
-        title: "Blockchain Lab @ NYU",
+        title: "Blockchain Lab @ NYU Ad",
         subtitle:
           "Early campus community-building days for blockchain education and student meetups.",
         cta: "View Photo",
@@ -199,15 +200,15 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         imageAlt: "Blockchain Lab at NYU poster pinned on a board",
       },
       {
-        title: "Hackathon Winners Circle",
+        title: "Hackathon Winners in Buenos Aires, Argentina 🇦🇷",
         subtitle:
-          "Celebrating builder wins and bounties with teams after a high-energy hackathon showcase.",
+          "Represented Circle at a hackathon in Buenos Aires, Argentina 🇦🇷. Celebrating builder wins and bounties with teams after an intense 3-day hackathon.",
         cta: "View Photo",
         imageSrc: "/gallery/hackathon-winners-circle-bounty.png",
         imageAlt: "Hackathon winners posing in front of Circle bounty board",
       },
       {
-        title: "Hackathon Live Pitch",
+        title: "Hackathon Live Pitch in Buenos Aires, Argentina 🇦🇷",
         subtitle:
           "Presenting live to a packed room of builders, mentors, and judges during demo day.",
         cta: "View Photo",
@@ -215,7 +216,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         imageAlt: "Large audience watching a hackathon presentation",
       },
       {
-        title: "Circle Bounties Deep Dive",
+        title: "Circle Bounties Deep Dive in Buenos Aires, Argentina 🇦🇷",
         subtitle:
           "Walking teams through Circle bounty tracks and product ideas during the event briefing.",
         cta: "View Photo",
@@ -456,7 +457,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         title: "GitHub",
         subtitle: "Code samples, repos, side projects, and in-progress open-source experiments.",
         cta: "Open GitHub",
-        href: "https://github.com/alvluken",
+        href: "https://github.com/AlvaroLuken",
         logoSrc: "/logos/github-real.svg",
         logoAlt: "GitHub logo",
       },

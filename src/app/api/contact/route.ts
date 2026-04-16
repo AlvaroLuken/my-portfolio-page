@@ -26,21 +26,22 @@ export async function POST(request: Request) {
     );
   }
 
-  const host = process.env.SMTP_HOST;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const host = process.env.SMTP_HOST ?? (resendApiKey ? "smtp.resend.com" : undefined);
   const port = Number(process.env.SMTP_PORT ?? "587");
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const user = process.env.SMTP_USER ?? (resendApiKey ? "resend" : undefined);
+  const pass = process.env.SMTP_PASS ?? resendApiKey;
   const to = "alvluken@gmail.com";
   const from =
+    process.env.RESEND_FROM_EMAIL ??
     process.env.CONTACT_FROM_EMAIL ??
-    process.env.SMTP_USER ??
-    "portfolio-contact@localhost.localdomain";
+    "onboarding@resend.dev";
 
   if (!host || !user || !pass) {
     return NextResponse.json(
       {
         message:
-          "Server email is not configured. Please set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASS.",
+          "Server email is not configured. Set RESEND_API_KEY or SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASS.",
       },
       { status: 500 },
     );
@@ -74,7 +75,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (error) {
+    console.error("[contact] Failed to send SMTP email.", error);
     return NextResponse.json({ message: "Unable to send email right now." }, { status: 500 });
   }
 }

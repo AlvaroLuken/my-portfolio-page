@@ -6,20 +6,14 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 const HOTSPOTS = [
   {
-    title: "San Diego, California",
-    lat: 32.7157,
-    lng: -117.1611,
+    title: "San Diego + Tijuana",
+    lat: 32.6153,
+    lng: -117.0996,
     color: 0x7ce8b5,
-    flag: "🇺🇸",
-    lines: ["Born here.", "Based here.", "Where I build and teach from."],
-  },
-  {
-    title: "Tijuana, Baja California, Mexico",
-    lat: 32.5149,
-    lng: -117.0382,
-    color: 0x86d0ff,
-    flag: "🇲🇽",
-    lines: ["Cross-border inspiration.", "Creative influence from Baja culture."],
+    flag: "🇺🇸 🇲🇽",
+    lines: [
+      "Cross-border home base between San Diego and Tijuana.",
+    ],
   },
   {
     title: "Mexico City, Mexico",
@@ -27,7 +21,7 @@ const HOTSPOTS = [
     lng: -99.1332,
     color: 0x7fe3d0,
     flag: "🇲🇽",
-    lines: ["Major creative and cultural anchor.", "Frequent source of inspiration."],
+    lines: ["Major creative and cultural anchor.", "Frequent source of inspiration.", "Parents live here."],
   },
   {
     title: "Buenos Aires, Argentina",
@@ -35,7 +29,7 @@ const HOTSPOTS = [
     lng: -58.3816,
     color: 0xff9fb6,
     flag: "🇦🇷",
-    lines: ["A global perspective node.", "Future collaboration destination."],
+    lines: ["My favorite city in the world!", "I love vacationing here and know it well."],
   },
   {
     title: "Wentzville, Missouri",
@@ -43,7 +37,7 @@ const HOTSPOTS = [
     lng: -90.8529,
     color: 0xffcc7a,
     flag: "🇺🇸",
-    lines: ["Manufacturing chapter.", "Hands-on operational experience."],
+    lines: ["Spent 6 months here working on GM's largest assembly line."],
   },
   {
     title: "San Francisco, California",
@@ -51,7 +45,7 @@ const HOTSPOTS = [
     lng: -122.4194,
     color: 0xc5b3ff,
     flag: "🇺🇸",
-    lines: ["Primary tech ecosystem base.", "Product and startup proximity."],
+    lines: ["I lived here for 2 years while working at Alchemy. I absolutely loved living here."],
   },
   {
     title: "New York, New York",
@@ -59,7 +53,7 @@ const HOTSPOTS = [
     lng: -74.006,
     color: 0xff8f95,
     flag: "🇺🇸",
-    lines: ["Where my CS degree journey happened.", "Enduring creative influence."],
+    lines: ["Where my CS degree journey happened."],
   },
   {
     title: "Phoenix, Arizona",
@@ -67,7 +61,7 @@ const HOTSPOTS = [
     lng: -112.074,
     color: 0xffb56a,
     flag: "🇺🇸",
-    lines: ["Southwest network node.", "Frequent collaboration point."],
+    lines: ["Spent 2 years living here while working at ChainShot.", "Scottsdale is a beautiful location."],
   },
 ] as const;
 
@@ -416,7 +410,7 @@ export default function InteractiveGlobe() {
     const hotspots = HOTSPOTS.map((hotspot) => {
       const markerPosition = latLngToVector3(hotspot.lat, hotspot.lng, 1.02);
       const normal = markerPosition.clone().normalize();
-      const isPrimary = hotspot.title === "San Diego, California";
+      const isPrimary = hotspot.title === "San Diego + Tijuana";
       const markerColor = new THREE.Color(hotspot.color);
       const markerEmissive = markerColor.clone().multiplyScalar(0.82);
       const markerLineColor = markerColor.clone().lerp(new THREE.Color(0xffffff), 0.28);
