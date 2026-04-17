@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SOCIAL_PREVIEW_IMAGE = "/gallery/alchemy-team-group.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -32,9 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/previews/p2-market-real.png",
-        width: 1200,
-        height: 630,
+        url: SOCIAL_PREVIEW_IMAGE,
         alt: "Alvaro Luken portfolio preview",
       },
     ],
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
     title: "Alvaro Luken | Portfolio",
     description:
       "Creative developer, educator, and community builder. Explore projects, talks, writing, and gallery highlights.",
-    images: ["/previews/p2-market-real.png"],
+    images: [SOCIAL_PREVIEW_IMAGE],
   },
 };
 

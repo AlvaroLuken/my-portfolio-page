@@ -144,7 +144,7 @@ export default function InteractiveGlobe() {
     controls.minPolarAngle = Math.PI / 2;
     controls.maxPolarAngle = Math.PI / 2;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.16;
+    controls.autoRotateSpeed = 0.32;
     controls.rotateSpeed = 0.6;
 
     const textureLoader = new THREE.TextureLoader();

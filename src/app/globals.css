@@ -1371,8 +1371,26 @@ body {
 }
 
 @media (max-width: 960px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .terrain-page {
+    align-items: flex-start;
+    min-height: 100dvh;
+    padding: 12px;
+  }
+
+  .terrain-shell {
+    width: 100%;
+    min-height: auto;
+  }
+
   .terrain-card {
     grid-template-columns: 1fr;
+    min-height: auto;
+    overflow: visible;
   }
 
   .terrain-left {
