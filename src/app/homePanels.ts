@@ -247,6 +247,38 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
         imageSrc: "/gallery/gallery-networking-evening.png",
         imageAlt: "Alvaro posing with Nikil (CEO of Alchemy) at a networking event",
       },
+      {
+        title: "Mirror Selfie with Chato",
+        subtitle:
+          "At-home mirror selfie with Chato in my arms before diving into the workday.",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-selfie-with-chato.png",
+        imageAlt: "Alvaro taking a mirror selfie while holding his dog Chato",
+      },
+      {
+        title: "Chato in Frog Mode",
+        subtitle:
+          "Chato rocking his frog hoodie at home and stealing the spotlight.",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-chato-frog-hoodie.png",
+        imageAlt: "Chato wearing a green frog hoodie in a living room",
+      },
+      {
+        title: "Doorway Snapshot",
+        subtitle:
+          "Simple travel-day doorway photo from a bright coastal stay.",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-doorway-portrait.png",
+        imageAlt: "Alvaro standing in a doorway wearing a white shirt and gray shorts",
+      },
+      {
+        title: "Elevator Selfie",
+        subtitle:
+          "Quick elevator selfie on the way out.",
+        cta: "View Photo",
+        imageSrc: "/gallery/gallery-elevator-selfie.png",
+        imageAlt: "Alvaro taking a selfie in an elevator",
+      },
     ],
   },
   "my-content": {
