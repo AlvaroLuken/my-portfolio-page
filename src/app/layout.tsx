@@ -12,12 +12,39 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Al Luken | Creative Developer",
+  metadataBase: new URL(SITE_URL),
+  title: "Alvaro Luken | Portfolio",
   description:
-    "Portfolio of Al Luken: creative developer, designer-minded builder, and educator focused on immersive product experiences.",
+    "Personal portfolio of Alvaro Luken: creative developer, educator, and community builder sharing projects, talks, writing, gallery moments, and contact details.",
   icons: {
-    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%8E%3C/text%3E%3C/svg%3E",
+    icon: [{ url: "/avatar/alvaro-avatar-featured.png" }],
+    apple: [{ url: "/avatar/alvaro-avatar-featured.png" }],
+  },
+  openGraph: {
+    title: "Alvaro Luken | Portfolio",
+    description:
+      "Explore Alvaro Luken's projects, bio journey, talks, writing, and gallery moments in an interactive portfolio experience.",
+    url: "/",
+    siteName: "Alvaro Luken Portfolio",
+    type: "website",
+    images: [
+      {
+        url: "/previews/p2-market-real.png",
+        width: 1200,
+        height: 630,
+        alt: "Alvaro Luken portfolio preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alvaro Luken | Portfolio",
+    description:
+      "Creative developer, educator, and community builder. Explore projects, talks, writing, and gallery highlights.",
+    images: ["/previews/p2-market-real.png"],
   },
 };
 
