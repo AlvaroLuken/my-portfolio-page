@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   description:
     "Personal portfolio of Alvaro Luken: creative developer, educator, and community builder sharing projects, talks, writing, gallery moments, and contact details.",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    shortcut: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/icon.png", type: "image/png" }],
+    shortcut: [{ url: "/icon.png", type: "image/png" }],
+    apple: [{ url: "/icon.png", type: "image/png" }],
   },
   openGraph: {
     title: "Alvaro Luken | Portfolio",

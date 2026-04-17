@@ -242,7 +242,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
       {
         title: "Suited up with Nikil (CEO of Alchemy!)",
         subtitle:
-          "Alchemy holiday partywith Nikil (CEO of Alchemy).",
+          "Alchemy holiday party with Nikil (CEO of Alchemy).",
         cta: "View Photo",
         imageSrc: "/gallery/gallery-networking-evening.png",
         imageAlt: "Alvaro posing with Nikil (CEO of Alchemy) at a networking event",
