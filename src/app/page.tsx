@@ -601,6 +601,7 @@ export default function Home() {
                       <header className="terrain-gallery-lightbox-header">
                         <div>
                           <h3>{activeGalleryCard.title}</h3>
+                          <p>{activeGalleryCard.subtitle}</p>
                         </div>
                         <button type="button" onClick={() => setActiveGalleryCard(null)}>
                           Close

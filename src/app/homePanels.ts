@@ -130,7 +130,7 @@ export const TAB_PANELS: Record<HomeTabId, HomeTabPanel> = {
       {
         title: "ETH SD x Alchemy",
         subtitle:
-          "ETH SD community event with Alchemy.",
+          "ETH SD community event with Alchemy. Swag for everyone!",
         cta: "View Photo",
         imageSrc: "/gallery/alchemy-team-group.png",
         imageAlt: "Alchemy team group photo",
