@@ -12,7 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 const SOCIAL_PREVIEW_IMAGE = "/gallery/alchemy-team-group.png";
 
 export const metadata: Metadata = {
@@ -35,6 +37,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: SOCIAL_PREVIEW_IMAGE,
+        width: 1200,
+        height: 630,
         alt: "Alvaro Luken portfolio preview",
       },
     ],
