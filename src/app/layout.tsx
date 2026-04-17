@@ -16,6 +16,7 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 const SOCIAL_PREVIEW_IMAGE = "/gallery/alchemy-team-group.png";
+const FAVICON_URL = "/icon.png?v=2";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -23,9 +24,9 @@ export const metadata: Metadata = {
   description:
     "Personal portfolio of Alvaro Luken: creative developer, educator, and community builder sharing projects, talks, writing, gallery moments, and contact details.",
   icons: {
-    icon: [{ url: "/icon.png", type: "image/png" }],
-    shortcut: [{ url: "/icon.png", type: "image/png" }],
-    apple: [{ url: "/icon.png", type: "image/png" }],
+    icon: [{ url: FAVICON_URL, type: "image/png" }],
+    shortcut: [{ url: FAVICON_URL, type: "image/png" }],
+    apple: [{ url: FAVICON_URL, type: "image/png" }],
   },
   openGraph: {
     title: "Alvaro Luken | Portfolio",
